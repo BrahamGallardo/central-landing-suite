@@ -69,7 +69,7 @@ export class PhoneMaskDirective {
     for (let i = 0; i < value.length; ++i) {
       ret += value.charAt(i);
       if (
-        (ret.length == 3 && origLength > 3) ||
+        (ret.length == 2 && origLength > 2) ||
         (ret.length == 7 && origLength > 7)
       ) {
         ret += '-';

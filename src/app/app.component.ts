@@ -18,18 +18,14 @@ import { ReactiveFormsModule } from '@angular/forms';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements AfterViewInit{
+export class AppComponent {
 
   title = 'central-landing-suite';
   private modalService: NgbModal = inject(NgbModal);
   private cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
 
-  ngAfterViewInit(): void {
-    this.cdr.detectChanges();
-  }
-
   public formGroup: FormGroup = new FormGroup({
-    phone: new FormControl('55')
+    phoneControl: new FormControl('81')
   });
 
   public phonePipe: string = "8112345678";
@@ -39,6 +35,6 @@ export class AppComponent implements AfterViewInit{
   }
 
   onPhoneNumberChange(val: string) {
-    console.log('>', val);
+    this.formGroup.get("phoneControl").setValue(val);
   }
 }

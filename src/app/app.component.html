@@ -53,18 +53,12 @@
     <div class="row my-3">
       <div class="col">
         <label for="exampleFormControlInput1" class="form-label">Phone</label>
-        <input id="phone" type="tel" class="form-control form-control-sm" formControlName="phone" phoneMask
-          [(phoneNumber)]="formGroup.get('phone').value" (phoneNumberChange)="onPhoneNumberChange($event)"
-          placeholder="123-456-7890">
+        <input id="phone" type="text" class="form-control form-control-sm" formControlName="phoneControl" phoneMask
+          [(phoneNumber)]="formGroup.get('phoneControl').value" (phoneNumberChange)="onPhoneNumberChange($event)"
+          placeholder="123-456-7890" autocomplete="off">
       </div>
     </div>
   </form>
-
-  <div class="row my-3">
-    <div class="col">
-      {{formGroup.get('phone').value}}
-    </div>
-  </div>
 
   <div class="row my-3">
     <div class="col">
