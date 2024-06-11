@@ -6,7 +6,6 @@ import { PhonePipe } from './shared/pipes/phone.pipe';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastService } from './core/services/toast.service';
-import { ToastComponent } from './shared/components/toast/toast.component';
 
 @Component({
   selector: 'app-root',
@@ -15,8 +14,7 @@ import { ToastComponent } from './shared/components/toast/toast.component';
     NgbModule,
     PhoneMaskDirective,
     PhonePipe,
-    ReactiveFormsModule,
-    ToastComponent
+    ReactiveFormsModule
   ],
   //template: `<button (click)="showToast()">Show Toast</button>`,
   templateUrl: './app.component.html',
@@ -26,13 +24,7 @@ export class AppComponent {
 
   title = 'central-landing-suite';
   private modalService: NgbModal = inject(NgbModal);
-  private cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
-  //private _toastService: ToastService = inject(ToastService)
-
-  /**
-   *
-   */
-  constructor(protected _toastService: ToastService) { }
+  private _toastService: ToastService = inject(ToastService)
 
   public formGroup: FormGroup = new FormGroup({
     phoneControl: new FormControl('81')
@@ -45,7 +37,7 @@ export class AppComponent {
   }
 
   showToast(): void {
-    this._toastService.show("success", "Hola soy un pan");
+    this._toastService.show("success", "Hola soy un pan", "Hola");
   }
 
   onPhoneNumberChange(val: string) {

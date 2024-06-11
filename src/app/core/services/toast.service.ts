@@ -1,26 +1,39 @@
 import { Injectable, inject } from '@angular/core';
-import { ToastComponent } from '../../shared/components/toast/toast.component';
-import { ToastInterface } from '../../shared/interfaces/toast-interface';
+import { GlobalConfig, ToastrService } from 'ngx-toastr';
+import { cloneDeep } from 'lodash-es';
+import { ToastBootstrapComponent } from '../../shared/components/toast-bootstrap/toast-bootstrap.component';
 
 type Type = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
 @Injectable({
   providedIn: 'root'
 })
 export class ToastService {
-  
-  public toasts: ToastInterface[] = [];
+  private options: GlobalConfig;
+  private toastr: ToastrService = inject(ToastrService);
 
-  show(type: Type, message: string, title?: string, duration: number = 2000) {
-    const toast: ToastInterface = { type, message, title, duration };
-    this.toasts.push(toast);
-    setTimeout(() => this.remove(toast), duration);
+  constructor() {
+    this.options = {
+      autoDismiss: false,
+      closeButton: true,
+      maxOpened: 2, // Cannon set max Opened
+      newestOnTop: true,
+      positionClass: 'toast-top-right',
+      tapToDismiss: false,
+      extendedTimeOut: 1000,
+      ...this.toastr.toastrConfig
+    } as GlobalConfig;
   }
 
-  remove(toast: ToastInterface) {
-		this.toasts = this.toasts.filter((t) => t !== toast);
-	}
-
-  clear() {
-    this.toasts.splice(0, this.toasts.length);
+  show(type: Type, message: string, title?: string, duration: number = 1500) {
+    this.options.timeOut = duration;
+    switch (type) {
+      case 'success':
+        this.options.toastComponent = ToastBootstrapComponent;
+        this.toastr.show(message, title, this.options);
+        break;
+      case 'dark':
+        this.toastr.show(message, title, this.options);
+        break;
+    }
   }
 }
