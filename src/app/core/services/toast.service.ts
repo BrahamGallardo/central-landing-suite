@@ -1,6 +1,5 @@
 import { Injectable, inject } from '@angular/core';
 import { GlobalConfig, ToastrService } from 'ngx-toastr';
-import { cloneDeep } from 'lodash-es';
 import { ToastBootstrapComponent } from '../../shared/components/toast-bootstrap/toast-bootstrap.component';
 
 type Type = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
@@ -24,7 +23,7 @@ export class ToastService {
     } as GlobalConfig;
   }
 
-  show(type: Type, message: string, title?: string, duration: number = 1500) {
+  show(type: Type, message: string, title?: string, duration: number = 60000) {
     this.options.timeOut = duration;
     switch (type) {
       case 'success':

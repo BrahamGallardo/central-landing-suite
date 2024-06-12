@@ -1,0 +1,29 @@
+// .toast-container .ngx-toastr:hover {
+//   box-shadow: 0 0 12px #dc3545;
+//   opacity: 1;
+//   cursor: pointer;
+// }
+
+.toast-success {
+  box-shadow: 0 0 12px #a31616 !important;
+  opacity: .2 !important;
+}
+
+.toast-container .ngx-toastr {
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 6px;
+  padding: 15px 15px 15px 50px;
+  width: 300px;
+  border-radius: 3px 3px 3px 3px;
+  background-position: 15px center;
+  background-repeat: no-repeat;
+  background-size: 24px;
+  box-shadow: 0 0 12px #999999;
+  color: #ea868f;
+}
+
+.ngx-toastr {
+  background-color: #ffc107;
+  pointer-events: auto;
+}
