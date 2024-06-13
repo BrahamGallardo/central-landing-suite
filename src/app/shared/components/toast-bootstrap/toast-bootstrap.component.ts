@@ -7,7 +7,8 @@ import { Toast } from 'ngx-toastr';
   selector: '[app-toast-bootstrap]',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: 'toast-bootstrap.component.html'
+  templateUrl: 'toast-bootstrap.component.html',
+  styleUrl: 'toast-bootstrap.component.scss'
 })
 export class ToastBootstrapComponent extends Toast {
 

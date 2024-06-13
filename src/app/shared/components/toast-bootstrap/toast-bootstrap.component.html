@@ -1,20 +1,16 @@
-<div class="toast-success toastr" role="alert">
-  <div class="toastr-header">
-    <strong class="me-auto">{{ title || 'default header' }}</strong>
-    <button
-      type="button"
-      class="btn-close"
-      aria-label="Close"
-      *ngIf="options.closeButton"
-      (click)="remove()"
-    ></button>
-  </div>
-  <div class="toast-body">
-    <div
-      role="alert"
-      [attr.aria-label]="message"
-    >
-      {{ message || 'default message' }}
+<!-- <div id="container" >
+  <div id="ngx" > -->
+    <div class="toast-success toastr" role="alert">
+      <div class="toastr-header title-success">
+        <strong class="me-auto">{{ title || 'default header' }}</strong>
+        <button type="button" class="btn-close" aria-label="Close" *ngIf="options.closeButton"
+          (click)="remove()"></button>
+      </div>
+      <div class="toast-body">
+        <div role="alert" [attr.aria-label]="message" class="message">
+          {{ message || 'default message' }}
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  <!-- </div>
+</div> -->

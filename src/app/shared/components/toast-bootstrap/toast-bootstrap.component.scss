@@ -1,29 +1,39 @@
-// .toast-container .ngx-toastr:hover {
-//   box-shadow: 0 0 12px #dc3545;
-//   opacity: 1;
-//   cursor: pointer;
+// :host ::ng-deep #toast-container {
+//   position: fixed;
+//   z-index: 999999;
+//   pointer-events: auto;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   width: 100%;
+//   margin-top: 20px;
 // }
 
-.toast-success {
-  box-shadow: 0 0 12px #a31616 !important;
-  opacity: .2 !important;
-}
+// :host ::ng-deep .toast-top-right {
+//   top: 12px;
+//   right: 12px;
+//   justify-content: flex-end;
+// }
 
-.toast-container .ngx-toastr {
-  position: relative;
-  overflow: hidden;
-  margin: 0 0 6px;
-  padding: 15px 15px 15px 50px;
-  width: 300px;
-  border-radius: 3px 3px 3px 3px;
-  background-position: 15px center;
-  background-repeat: no-repeat;
-  background-size: 24px;
-  box-shadow: 0 0 12px #999999;
-  color: #ea868f;
-}
+// :host ::ng-deep .ngx-toastr {
+//   background-color: rgba(241, 253, 245, 0.7); /* Fondo verde claro con transparencia */
+//   border: 1px solid #16a34a; /* Borde verde oscuro */
+//   box-shadow: 0 0 12px #16a34a;
+//   color: #000;
+//   opacity: 1;
+// }
 
-.ngx-toastr {
-  background-color: #ffc107;
-  pointer-events: auto;
-}
+// :host ::ng-deep .ngx-toastr .toast-success {
+//   background-color: rgba(241, 253, 245, 0.7); /* Fondo verde claro con transparencia */
+//   border: 1px solid #16a34a; /* Borde verde oscuro */
+//   box-shadow: 0 0 12px #16a34a;
+//   color: #000;
+// }
+
+// :host ::ng-deep .ngx-toastr .title-success {
+//   color: #16a34a;
+// }
+
+// :host ::ng-deep .ngx-toastr .message {
+//   color: #000;
+// }
