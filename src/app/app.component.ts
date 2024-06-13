@@ -6,6 +6,7 @@ import { PhonePipe } from './shared/pipes/phone.pipe';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastService } from './core/services/toast.service';
+import { NgToastModule, ToasterPosition } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-root',
@@ -14,14 +15,14 @@ import { ToastService } from './core/services/toast.service';
     NgbModule,
     PhoneMaskDirective,
     PhonePipe,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgToastModule
   ],
-  //template: `<button (click)="showToast()">Show Toast</button>`,
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-
+  ToasterPosition = ToasterPosition;
   title = 'central-landing-suite';
   private modalService: NgbModal = inject(NgbModal);
   private _toastService: ToastService = inject(ToastService)
