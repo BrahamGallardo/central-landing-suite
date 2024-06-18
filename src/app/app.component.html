@@ -1,3 +1,5 @@
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.7)" size = "medium" color = "#fff" type = "ball-pulse-sync" [fullScreen] = "true"></ngx-spinner>
+
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
@@ -62,12 +64,6 @@
 
   <button class="btn btn-sm btn-outline-primary" (click)="showToast()">Show Toast</button>
 
-  <!-- <div class="row my-3">
-    <div class="col">
-      <button class="btn btn-sm btn-outline-primary" (click)="open(demoModal)">Launch demo modal</button>
-    </div>
-  </div> -->
-
   <form [formGroup]="formLogin">
     <div class="row my-3">
       <div class="col">
@@ -84,9 +80,19 @@
 
     <div class="row my-3">
       <div class="col">
-        <button class="btn btn-sm btn-outline-primary" (click)="auth()">Login</button>
+        {{user}}
       </div>
     </div>
+
+    <div class="row my-3">
+      <div class="col-md-1">
+        <button class="btn btn-sm btn-outline-primary" (click)="login()">Login</button>
+      </div>
+      <div class="col-md-1">
+        <button class="btn btn-sm btn-outline-primary" (click)="logout()">Logout</button>
+      </div>
+    </div>
+    
 
   </form>
 

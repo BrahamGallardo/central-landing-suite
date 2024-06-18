@@ -1,99 +1,58 @@
-import { Injectable, inject } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastService } from './toast.service';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, of, tap } from 'rxjs';
-import { Session } from '../../models/session';
+import { Injectable, inject } from '@angular/core';
+import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { Session } from '../../models/session';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  private _spinner: NgxSpinnerService = inject(NgxSpinnerService);
-  private _toast: ToastService = inject(ToastService);
-  private _router: Router = inject(Router);
+  private readonly USER_KEY = 'user';
+  private readonly SESSION_KEY = 'session';
   private _http: HttpClient = inject(HttpClient);
 
-  private _url: string = environment.apiUrl + '/auth';
+  private _url: string = environment.apiUrl + '/Auth';
+  private destroy$: Subject<void> = new Subject<void>();
 
-  protected handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      this._spinner.hide();
-      switch (error.status) {
-        case 400:
-          console.log("400: ", error);
-          this._toast.showDanger("400: Error");
-          break;
-        case 401:
-          console.log("401: ", error);
-          this._router.navigate(['/auth']);
-          this._toast.showDanger("401: Your session has expired. Please log in again to continue.");
-          break;
-        case 404:
-          console.log("404: ", error);
-          break;
-        case 500:
-          console.log("500: ", error);
-          const message = error.error.Message.slice(0, 36) + '...';
-          this._toast.showDanger("500: " + message);
-          break;
-        default:
-          break;
-
-      }
-      return of(result as T);
-    };
-  }
-
-  addSession(email: string, password: string): Observable<Session> {
-    this._spinner.show();
+  login(email: string, password: string, rememberMe: boolean = false): Observable<Session> {
     const loginParameters = {
       email: email,
       password: password,
     }
     return this._http.post<Session>(this._url, loginParameters).pipe(
-      tap((session: Session) => {
-        this._spinner.hide();
-        if (!session) return;
-        this._toast.showSucces('Welcome');
-      }),
-      catchError(this.handleError<Session>('addSession'))
+      tap({
+        next: response => {
+          this.setCurrentAuth(response, rememberMe);
+        }, error: () => {}
+      })
     );
-  }
-
-  getCurrentAuth(): Session {
-    if (localStorage.getItem('session') != null) {
-      return JSON.parse(localStorage.getItem('session'));
-    }
-    return null;
   }
 
   isAuthenticated(): boolean {
     return this.getCurrentAuth() !== null;
   }
 
-  getUser(): string {
-    if (localStorage.getItem('user') != null) {
-      return localStorage.getItem('user');
+  getCurrentAuth(): Session {
+    if (localStorage.getItem(this.SESSION_KEY) != null) {
+      return JSON.parse(localStorage.getItem(this.SESSION_KEY));
     }
     return null;
   }
 
-  clear(): void {
+  logout(): void {
     this.deleteCurrentAuth();
   }
 
-  deleteCurrentAuth(): void {
-    localStorage.clear();
+  private deleteCurrentAuth(): void {
+    if (localStorage.getItem(this.USER_KEY)) localStorage.removeItem(this.SESSION_KEY);
+    else localStorage.clear();
     window.location.reload();
   }
 
-  setCurrentAuth(session: Session) {
-    localStorage.setItem('session', JSON.stringify(session));
-    localStorage.setItem('user', session.user.email);
+  private setCurrentAuth(session: Session, rememberMe: boolean = false) {
+    localStorage.setItem(this.SESSION_KEY, JSON.stringify(session));
+    if (rememberMe) localStorage.setItem(this.USER_KEY, session.user.email);
     window.location.reload();
   }
 
