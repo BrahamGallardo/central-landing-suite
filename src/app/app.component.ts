@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PhoneMaskDirective } from './shared/directive/phone-mask.directive';
 import { PhonePipe } from './shared/pipes/phone.pipe';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastService } from './core/services/toast.service';
 import { NgToastModule, ToasterPosition } from 'ng-angular-popup';
@@ -31,6 +31,11 @@ export class AppComponent {
     phoneControl: new FormControl('81')
   });
 
+  public formLogin: FormGroup = new FormGroup({
+    emailControl: new FormControl('', Validators.required),
+    passwordControl: new FormControl('', Validators.required)
+  });
+
   public phonePipe: string = "8112345678";
 
   public open(modal: any): void {
@@ -38,10 +43,14 @@ export class AppComponent {
   }
 
   showToast(): void {
-    this._toastService.show("success", "Hola soy un pan", "Hola");
+    this._toastService.showInfo("Hola soy un pan", "Hola");
   }
 
   onPhoneNumberChange(val: string) {
     this.formGroup.get("phoneControl").setValue(val);
+  }
+
+  auth() {
+
   }
 }
