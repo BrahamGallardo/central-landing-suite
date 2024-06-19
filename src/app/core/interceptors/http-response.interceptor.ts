@@ -1,9 +1,9 @@
-import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { catchError, finalize, throwError } from 'rxjs';
-import { AuthService } from '../services/auth.service';
-import { ToastService } from '../services/toast.service';
+import { HttpInterceptorFn } from '@angular/common/http';
+import { finalize } from 'rxjs';
+
+export const httpResponseInterceptor: HttpInterceptorFn = (req, next) => {
+  return next(req);
+}
 
 //Uncomment when you need to test
 export const loggingInterceptorFunctional: HttpInterceptorFn = (req, next) => {
