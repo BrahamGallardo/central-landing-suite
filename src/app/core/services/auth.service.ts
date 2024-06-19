@@ -13,7 +13,6 @@ export class AuthService {
   private _http: HttpClient = inject(HttpClient);
 
   private _url: string = environment.apiUrl + '/Auth';
-  private destroy$: Subject<void> = new Subject<void>();
 
   login(email: string, password: string, rememberMe: boolean = false): Observable<Session> {
     const loginParameters = {
@@ -24,7 +23,7 @@ export class AuthService {
       tap({
         next: response => {
           this.setCurrentAuth(response, rememberMe);
-        }, error: () => {}
+        }
       })
     );
   }
