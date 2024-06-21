@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Session } from '../../models/session';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class AuthService {
   private readonly USER_KEY = 'user';
   private readonly SESSION_KEY = 'session';
   private _http: HttpClient = inject(HttpClient);
+  private router = inject(Router);
 
   private _url: string = environment.apiUrl + '/Auth';
 
@@ -51,7 +53,9 @@ export class AuthService {
 
   private setCurrentAuth(session: Session, rememberMe: boolean = false) {
     localStorage.setItem(this.SESSION_KEY, JSON.stringify(session));
-    if (rememberMe) localStorage.setItem(this.USER_KEY, session.user.email);
+    if (rememberMe) {
+      localStorage.setItem(this.USER_KEY, session.user.email);
+    } else localStorage.removeItem(this.USER_KEY);
     window.location.reload();
   }
 
